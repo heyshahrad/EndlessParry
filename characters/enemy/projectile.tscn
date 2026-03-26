@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8saph"]
 size = Vector2(12, 12)
 
-[node name="Projectile" type="Area2D"]
+[node name="Projectile" type="Area2D" groups=["projectile"]]
 script = ExtResource("1_smw46")
 
 [node name="ColorRect" type="ColorRect" parent="."]

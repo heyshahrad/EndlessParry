@@ -21,7 +21,7 @@ func _process(delta):
 	# Keep track of how long the game has been running
 	time_passed += delta
 	
-	# The Sine wave magic! 
+	# The Sine wave
 	# We take the starting position, and add a smooth waving number to it.
 	position.y = start_y + sin(time_passed * float_speed) * float_amplitude
 	
@@ -34,3 +34,11 @@ func _on_shoot_timer_timeout():
 	
 	# 3. Add the projectile to the main game world so it actually appears
 	get_tree().current_scene.add_child(proj)
+
+
+# This triggers when something hits the Enemy Area2D
+func _on_area_entered(area):
+	if area.is_in_group("projectile"):
+		if area.is_parried: # Only take damage if the player parried it!
+			area.queue_free() # Delete the projectile
+			queue_free() # Delete the Enemy
