@@ -24,7 +24,7 @@ position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_508ok")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(182, 0)
+position = Vector2(351, -74)
 
 [node name="Shield" type="Area2D" parent="."]
 
