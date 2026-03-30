@@ -16,6 +16,7 @@ var projectile_scene = preload("res://characters/enemy/projectile.tscn")
 func _ready():
 	# Remember where we placed the enemy in the level before it starts moving
 	start_y = position.y
+	add_to_group("enemy") # Crucial for the explosion to find them later!
 
 func _process(delta):
 	# Keep track of how long the game has been running
@@ -27,18 +28,24 @@ func _process(delta):
 	
 # This triggers every time the ShootTimer reaches 0
 func _on_shoot_timer_timeout():
-	# 1. Create a new copy of the projectile
-	var proj = projectile_scene.instantiate()	
-	# 2. Move the new projectile to exactly where the SpawnPoint is
-	proj.global_position = $SpawnPoint.global_position
+	# 1. Look for the player
+	var players = get_tree().get_nodes_in_group("player")
+	if players.size() == 0:
+		return # If the player is dead/missing, don't shoot!
+		
+	var player = players[0] # Grab the actual player node
 	
-	# 3. Add the projectile to the main game world so it actually appears
+	# 2. Create the chain
+	var proj = projectile_scene.instantiate()
+	proj.global_position = $SpawnPoint.global_position
+	proj.shooter = self 
+	
+	# 3. Calculate the exact direction to the player
+	var exact_direction = proj.global_position.direction_to(player.global_position)
+	proj.direction = exact_direction
+	
+	# Optional: Rotate the tip of the hook to point at the player
+	proj.rotation = exact_direction.angle()
+	
+	# 4. Fire!
 	get_tree().current_scene.add_child(proj)
-
-
-# This triggers when something hits the Enemy Area2D
-func _on_area_entered(area):
-	if area.is_in_group("projectile"):
-		if area.is_parried: # Only take damage if the player parried it!
-			area.queue_free() # Delete the projectile
-			queue_free() # Delete the Enemy

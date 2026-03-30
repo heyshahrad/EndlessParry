@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cvs616cjmxfve" path="res://enviroment/world/treadmill.gd" id="3_q1nod"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhhyj"]
-size = Vector2(2053, 692)
+size = Vector2(3823, 692)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7bjro"]
 
@@ -23,12 +23,12 @@ noise = SubResource("FastNoiseLite_7bjro")
 [node name="ColorRect" type="ColorRect" parent="Floor"]
 offset_left = -951.0
 offset_top = 52.0
-offset_right = 1102.0
+offset_right = 2877.0
 offset_bottom = 750.0
 color = Color(0.2937701, 0.6704162, 0.22679982, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(74.5, 398)
+position = Vector2(959.5, 398)
 shape = SubResource("RectangleShape2D_lhhyj")
 
 [node name="Enemy" parent="." instance=ExtResource("2_tcmt3")]
